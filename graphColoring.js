@@ -3,15 +3,35 @@
  * Atlantik Limani, Dardan Bakiu, Bajram Sherifi
  */
 
+function findMaxEdges(graph) {
+  let max = 0;
+  graph.forEach(node => {
+    console.log(node)
+    if(max < node.neighbor.length) {
+      max = node.neighbor.length
+    }
+  });
+
+  return max + 1;
+}
+
+function generateColors(graph) {
+  let colors = []
+  for (let i = 0; i < findMaxEdges(graph); i++) {
+    colors.push(i);
+  }
+  return colors;
+}
+
 const graph = new Map()
 
-const colors = [0,1,2];
-
 graph.set(1, {'neighbor': [4,2], 'color': null});
-graph.set(2, {'neighbor': [1,3], 'color': null});
-graph.set(3, {'neighbor': [4,2], 'color': null});
-graph.set(4, {'neighbor': [1,3], 'color': null});
+graph.set(2, {'neighbor': [1,4], 'color': null});
+graph.set(3, {'neighbor': [4,5], 'color': null});
+graph.set(4, {'neighbor': [1,2,5,3], 'color': null});
+graph.set(5, {'neighbor': [4,3], 'color': null});
 
+const colors = generateColors(graph);
 
 //kjo kontrollon a e kan ate ngjyre neighboors
 function checkNeighbor(node) {
@@ -26,9 +46,9 @@ function checkNeighbor(node) {
 }
 
 function colorNode(node) {
-  graph.get(node).color = colors[Math.floor(Math.random() * 3)]
+  graph.get(node).color = colors[Math.floor(Math.random() * colors.length)]
   while (!checkNeighbor(node)) {
-    graph.get(node).color = colors[Math.floor(Math.random() * 3)]
+    graph.get(node).color = colors[Math.floor(Math.random() * colors.length)]
   } 
 }
 
@@ -41,4 +61,6 @@ function colorGraph(numberOfNodes) {
 
   console.log(graph)
 }
-colorGraph(4)
+
+console.log('numri i ngjyrave : ', colors)
+colorGraph(5)
