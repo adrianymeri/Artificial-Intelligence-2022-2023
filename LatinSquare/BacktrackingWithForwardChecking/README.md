@@ -1,0 +1,3 @@
+# LatinSquare
+#backtracking
+#forwardchecking
